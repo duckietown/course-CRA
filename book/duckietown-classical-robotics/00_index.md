@@ -1,4 +1,4 @@
-# Classical Robotics Architectures using Duckietown {#book:CRA status=ready}
+# Classical Robotics Architectures using Duckietown {#book:book status=ready}
 
 <!-- about the "Excerpt:" paragraph: in the future this will be 
     the short description of the book on the site. Does not get 
