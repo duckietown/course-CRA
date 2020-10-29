@@ -1,4 +1,4 @@
-# Exercise: Augmented Reality {#exercise-augmented-reality status=ready}
+# Basic Augmented Reality Exercise {#cra-basic-augmented-reality-exercise status=ready}
 
 Excerpt: Apply your competences in software development in a perception pipeline.
 
@@ -20,69 +20,43 @@ In particular the focus is in the perception pipeline, where you will implement 
   Results: Insights into a computer graphics pipeline.
 </div>
 
+## Segments Projection Exercise
 
-## Introduction
+In this exercise you are asked to draw some segments on an image given a yaml file with their specification namely defining points coordinates and color of each segment.
+In order to do that you will have to create a package called `augmented_reality_basics` with functionalities specified below in [](#cra-basic-augmented-reality-exercise-spec).
 
-During lectures, we explained one direction of the image pipeline:
-
-<figure>
-  <img style="width:30em" src="images/image_pipeline.png"/>
-</figure>
-
-In this exercise, we are going to look at the pipeline in the opposite direction.
-
-It is often said that:
-
-> "The inverse of computer vision is computer graphics."
-
-The inverse pipeline looks like this:
-<figure>
-  <img style="width:30em" src="images/graphics.png"/>
-</figure>
-In simple words, instead of extracting information from our camera, we want to introduce some data in the imagery.
-
-
-## Instructions
-
-
-* Ensure that you have already done intrinsics and extrinsics [camera calibration]() of your robot.
-* Create a package called `augmented_reality` with functionalities specified below in [](#exercise-augmented-reality-spec).
-
-
-Then verify the results in the following 3 situations.
-
+Then verify the results of your package in the following 3 situations.
 
 ### Situation 1: Calibration pattern
 
 * Put the robot in the middle of the calibration pattern.
-* Run the node `augmented_reality` with map file `calibration_pattern.yaml`.
+* Run the node `augmented_reality_basics` with map file `calibration_pattern.yaml`.
 
 (Adjust the position of your Duckiebot until you get a decent match of reality and augmented reality.)
 
 ### Situation 2: Lane
 
 * Put the robot in the middle of a lane.
-* Run the node `augmented_reality` with map file `lane.yaml`.
+* Run the node `augmented_reality_basics` with map file `lane.yaml`.
 
 (Adjust the position of your Duckiebot of your Duckiebot until you get a decent match of reality and augmented reality.)
 
 ### Situation 3: Intersection
 
 * Put the robot at a stop line at a 4-way intersection in Duckietown.
-* Run the node `augmented_reality` with map file `intersection_4way.yaml`.
+* Run the node `augmented_reality_basics` with map file `intersection_4way.yaml`.
 
 (Adjust the position of your Duckiebot until you get a decent match of reality and augmented reality.)
 
-## Specification of `augmented_reality` {#exercise-augmented-reality-spec}
+## Specification of "augmented_reality_basics" {#cra-basic-augmented-reality-exercise-spec}
 
 In this assignment you will be writing a ROS package to perform the augmented reality exercise. The program will be invoked with the following syntax:
 
-    container $ roslaunch augmented_reality augmented_reality.launch map_file:=![map file] robot_name:=![robot name]
+    container $ roslaunch augmented_reality_basics augmented_reality_basics.launch map_file:=![map file] robot_name:=![robot name]
 
-where `![map file]` is a YAML file containing the map (specified in [](#exercise-augmented-reality-map)).
+where `![map file]` is a YAML file containing the map as specified in [](#cra-basic-augmented-reality-exercise-map).
 
-The package structure *must* be the one provided by the [Duckietown template-ros](https://github.com/duckietown/template-ros),
-in addition, create a map folder where you can store the map files.
+The package structure *must* be the one provided by the [Duckietown template-ros](https://github.com/duckietown/template-ros), in addition, create a map folder where you can store the map files.
 
 Your program is supposed to do the following:
 
@@ -95,7 +69,7 @@ where `![map file basename]` is the basename of the file without the extension.
 
 <!-- We provide you with ROS package template that contains the `AugmentedRealityNode`. By default, launching the `AugmentedRealityNode` should publish raw images from the camera on the new `/![robot name]/AR/![map file basename]/image/compressed` topic. -->
 
-Create a ROS node called `augmented_reality_node`, which imports an `Augmenter` class, from an `augmented_reality` module.
+Create a ROS node called `augmented_reality_basics_node`, which imports an `Augmenter` class, from an `augmented_reality_basics` module.
 The class should contain the following methods:
 
 1. A method called `process_image` that undistorts raw images.
@@ -106,7 +80,7 @@ In the ROS node, you just need a callback that uses the above specified class to
 
 1. Implement a method called `callback` that writes the augmented image to the appropriate topic.
 
-## Specification of the map {#exercise-augmented-reality-map}
+## Map Specification {#cra-basic-augmented-reality-exercise-map}
 
 The map file contains a 3D polygon, defined as a list of points and a list of segments
 that join those points.
@@ -164,8 +138,7 @@ Moreover, we support the following strings:
 - `black` is equivalent to `[rgb, [0,0,0]]`
 
 
-## "Map" files
-
+## "Map" specification files
 
 ### `hud.yaml`
 
