@@ -13,7 +13,7 @@ The goal of this exercise is to put your skills in computer graphic to the test 
 
   Requires: [Knowledge of the software architecture on a Duckiebot](+duckietown-robotics-development#duckietown-code-structure)
   
-  Requires: [Basic Augmented Reality Exercise](+duckietown-classical-robotics#cra-basic-augmented-reality-exercise status)
+  Requires: [Basic Augmented Reality Exercise](#cra-basic-augmented-reality-exercise)
 
   Results: Skills on how to develop new code as part of the Duckietown framework
 
@@ -30,7 +30,7 @@ You should have received some traffic signs with AprilTags with the initial Duck
 
 In the Duckietown infrastructure AprilTags are recognized and managed through the [lib-dt-apriltags](https://github.com/duckietown/lib-dt-apriltags). Check it out to see how to use it! 
  
-In order to do that you will have to create a package called `augmented_reality_apriltag` with functionalities specified below in [](#cra-basic-augmented-reality-exercise-structure).
+In order to do that you will have to create a package called `augmented_reality_apriltag` with functionalities specified below in [](#cra-basic-augmented-reality-exercise).
 
 ## Instructions {#cra-apriltag-augmented-reality-exercise-instructions}
 

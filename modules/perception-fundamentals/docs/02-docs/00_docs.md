@@ -2,7 +2,7 @@
 
 ## Introduction
 
-During lectures, we explained one direction of the image pipeline:  
+During lectures, we explained the perception direction of the image pipeline:  
 
 <figure>
   <img style="width:30em" src="images/image_pipeline.png"/>
@@ -22,9 +22,9 @@ The inverse pipeline looks like this:
 
 In simple words, instead of extracting information from our camera, we want to introduce some data in the imagery.
 
-For this exercise concept like camera calibration, homographies, projection matrices, image plane and world coordinates are essential. So be sure to have those in mind while you try to solve the exercises in the next sections.  
+For this exercise concept like camera calibration, homography and projection matrices, image plane and world coordinates are essential. So be sure to have those in mind while you work your way through the exercises in the next sections.  
 
-Here is a quick reminder on what an homography is and how it is obtained:
+Here is a quick reminder on what the homography matrix is and how it is obtained:
 
 <figure>
   <img style="width:30em" src="images/homography_matrix.png"/>
