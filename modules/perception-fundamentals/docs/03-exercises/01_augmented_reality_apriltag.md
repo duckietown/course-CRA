@@ -40,15 +40,15 @@ TODO: (VINCENZO) CREATE AND LINK THE CUSTOM REPO, SPECIFY WHETHER IS A TEMPLATE 
 3. We provided you a file called `renderClass.py`. Inside you will find the `Renderer` class which allows you to draw a 3D `.obj` model onto an image. If you are curious about how this happens, the code inside this file is a modified version of [Pygame OBJFileLoader](http://www.pygame.org/wiki/OBJFileLoader).
   The provided Renderer class contains the method `render(img, projection_matrix)`, where `img` is the image you want to project the model onto and `projection_matrix` is the 3x4 matrix that transforms the 3D model coordinates to the AprilTag reference system allowing you to project it.
   The constructor of an instance of the `Renderer` class requires the 3D model as input. Keep the 3D model in a directory with the path `src/models`. You can use the code below to correctly initialize an instance of the `Renderer` class:
-    ```Python
-    # Import class from file.
-    from renderClass import Renderer
-    
-    rospack = rospkg.RosPack()
-    
-    # Initialize an instance of Renderer giving the model in input.
-    self.renderer = Renderer(rospack.get_path('YOUR PACKAGE NAME')+'/src/models/duckie.obj')
-    ```
+  ```Python
+  # Import class from file.
+  from renderClass import Renderer
+
+  rospack = rospkg.RosPack()
+
+  # Initialize an instance of Renderer giving the model in input.
+  self.renderer = Renderer(rospack.get_path('YOUR PACKAGE NAME')+'/src/models/duckie.obj')
+  ```
    Please refrain from changing the `renderClass.py` file. It has been tested and any change might lead to unexpected errors and problems that will not be supported. 
 4. You will also get a function to load the calibration parameters of your Duckiebot camera. TODO(VINCENZO) SPECIFY WHICH FUNCTION WE WANT TO GIVE THEM, ORIGINAL DUCKIETOWN OR OURS.
 

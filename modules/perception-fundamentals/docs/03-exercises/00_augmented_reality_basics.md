@@ -63,9 +63,7 @@ Your program is supposed to do the following:
 1. Load the intrinsic / extrinsic calibration parameters for the given robot.
 2. Read the map file corresponding to the `map_file` parameter given in the roslaunch command above.
 3. Subscribe to the image topic `/![robot name]/camera_node/image/compressed`.
-4. When you receive an image, project the map features onto it, and then publish the result to the topic `/![robot name]/![node_name]/![map file basename]/image/compressed`
-
-where `![map file basename]` is the basename of the file without the `yaml` extension.
+4. When you receive an image, project the map features onto it, and then publish the result to the topic `/![robot name]/![node_name]/![map file basename]/image/compressed` where `![map file basename]` is the basename of the file without the `yaml` extension.
 
 <!-- We provide you with ROS package template that contains the `AugmentedRealityNode`. By default, launching the `AugmentedRealityNode` should publish raw images from the camera on the new `/![robot name]/AR/![map file basename]/image/compressed` topic. -->
 
@@ -76,9 +74,9 @@ The `Augmenter` class should contain the following methods:
 2. A method called `ground2pixel` that transforms points in ground coordinates (i.e. the robot reference frame) to pixels in the image.
 3. A method called `render_segments` that plots the segments from the map files onto the image.
 
-In the ROS node, you just need a callback on the camera image stream that uses the `Augmenter` class to modify the input image, so:
+In the ROS node, you just need a callback on the camera image stream that uses the `Augmenter` class to modify the input image. Therefore, implement a method called `callback` that writes the augmented image to the appropriate topic.
 
-1. Implement a method called `callback` that writes the augmented image to the appropriate topic.
+Note: As you will subscribe to the camera node's `camera_node/image/compressed` topic, you will need to run the `dt-duckiebot-interface` container alongside your own container.
 
 ## Map Specification {#cra-basic-augmented-reality-exercise-map}
 
