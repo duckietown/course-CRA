@@ -12,9 +12,9 @@ In this exercise you will extensively use images and inevitably make some mistak
 Debugging ROS packages that manipulate images can be very difficult only from the terminal output of your node and visualizing the image stream can be useful. 
 Within the Duckietown infrastructure we have a very nice way to do that: use duckietown shell.
 
-You can start a container connected to the ROS master on you Duckibot with:
+You can start a container connected to the ROS master on you Duckiebot with:
 
-laptop $ dts start_gui_tools ![DUCKIEBOT_NAME] 
+    laptop $ dts start_gui_tools ![DUCKIEBOT_NAME] 
 
 Once inside this container you can call the rqt commands to visualize the state of the pipeline on you robot. 
 

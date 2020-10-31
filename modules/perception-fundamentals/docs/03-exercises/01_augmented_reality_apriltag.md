@@ -13,7 +13,7 @@ The goal of this exercise is to put your skills in computer graphic to the test 
 
   Requires: [Knowledge of the software architecture on a Duckiebot](+duckietown-robotics-development#duckietown-code-structure)
   
-  Requires: [Basic Augmented Reality Exercise](#cra-basic-augmented-reality-exercise status)
+  Requires: [Basic Augmented Reality Exercise](+duckietown-classical-robotics#cra-basic-augmented-reality-exercise status)
 
   Results: Skills on how to develop new code as part of the Duckietown framework
 
@@ -21,7 +21,7 @@ The goal of this exercise is to put your skills in computer graphic to the test 
 </div>
 
 
-
+<!--
 * add dt-apriltags in py3 dependencies
 * april tag reference https://github.com/duckietown/lib-dt-apriltags
 * We provide you the renderClass.py, this is a class that allows you to render a 3D .obj model (It is a modified version of http://www.pygame.org/wiki/OBJFileLoader) 
@@ -39,5 +39,5 @@ The goal of this exercise is to put your skills in computer graphic to the test 
 
 
 QUESTIONS 
-* try to play with the parameters nthreads and quad_decimate what is it changing, is the rendering improving and how?
+* try to play with the parameters nthreads and quad_decimate what is it changing, is the rendering improving and how? -->
 
