@@ -58,12 +58,11 @@ TODO: (VINCENZO) CREATE AND LINK THE CUSTOM REPO, SPECIFY WHETHER IS A TEMPLATE 
 Looking at the project as a whole may make it seem more difficult than it really is. But we will follow the latin proverb _divide et impera_ (_divide and rule_). In other words, we will brake down the big monolithic problem into a few smaller and manageable tasks.
 
 First, let's focus on what we are trying to achieve: to project a 3D model onto an image such that the position and orientation of the model match the position and orientation of an AprilTag. The break-down of this task looks like that:
-1) Detect the AprilTag and extract its reference frame.
-2) Estimate the homography matrix: determine the transformation from the reference frame of the AprilTag (2D) to the reference frame of the target image (2D). This transformation is the homography matrix. For this step and the previous one, have a look at the [lib-dt-apriltags](https://github.com/duckietown/lib-dt-apriltags) repository, you will find it quite useful.
-3) Derive from the homography the transformation from the reference surface coordinate system to the target image coordinate system : if we want to project a 3D model placed on top of the reference surface to the target image, we need to extend the previous transformation to handle cases were the height of the point to project in the reference surface coordinate system is different than zero. This can be achieved with knowledge about transformations a bit of algebra.
-4) Project our 3D model in the image (pixel space) and draw it : you can use the provided Renderer class for this.
+1. Detect the AprilTag and extract its reference frame.
+2. Estimate the homography matrix: determine the transformation from the reference frame of the AprilTag (2D) to the reference frame of the target image (2D). This transformation is the homography matrix. For this step and the previous one, have a look at the [lib-dt-apriltags](https://github.com/duckietown/lib-dt-apriltags) repository, you will find it quite useful.
+3. Derive the transformation from the reference frame of the AprilTag to the target image reference frame: if we want to project a 3D model placed on top of the reference surface to the target image, we need to extend the previous transformation to handle cases were the height of the point to project is different from zero. This can be achieved with some knowledge about coordinate system transformations and a bit of algebra.
+4. Project our 3D model in the image (pixel space) and draw it: you can use the provided `Renderer` class for this.
 
 ## Parameter Tweaking {#cra-apriltag-augmented-reality-exercise-parameters}
 
-As you might have seen the AprilTag detection adds little delay to the pipeline. However, you can try to change some parameters for a better accuracy and speed trade-off. Try to play around with the parameters `nthreads` and `quad_decimate`, what does it change? Does the speed improve? What about the stability and accuracy of the detector?
-TODO(VINCENZO) SPECIFY WHERE TO FIND THIS PARAMETERS.
+As you might have seen the AprilTag detection adds some delay to the pipeline. However, you can try to change some parameters for a better accuracy and speed trade-off. Try to play around with the parameters `nthreads` and `quad_decimate` of the `dt_apriltags.Detector` class. What do they change? Does the speed improve? What about the stability and accuracy of the detector?
