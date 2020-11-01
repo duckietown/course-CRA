@@ -52,9 +52,10 @@ Then verify the results of your package in the following 3 scenarios.
 
 In this assignment you will be writing a ROS package to perform the augmented reality exercise. The program will be invoked with the following syntax:
 
-    container $ roslaunch augmented_reality_basics augmented_reality_basics.launch map_file:=![map file] robot_name:=![robot name]
+    container $ roslaunch augmented_reality_basics augmented_reality_basics.launch map_file:=![map file] veh:="$VEHICLE_NAME"
 
 where `![map file]` is a YAML file containing the map as specified in [](#cra-basic-augmented-reality-exercise-map).
+If you use a roslaunch in the `launch.sh` file remember to put '`dt-exec` before each command. 
 
 The package structure *must* be the one provided by the [Duckietown template-ros](https://github.com/duckietown/template-ros). In addition, create a map directory where you can store the map files.
 
@@ -108,7 +109,7 @@ The following map file describes three points, and two lines.
 
 The reference frames are defined as follows:
 
-- `axle`: center of the axle; coordinates are in 3D.
+- `axle`: center of the wheels axle; coordinates are in 3D.
 - `camera`: camera frame; coordinates are in 3D.
 - `image01`: a reference frame in which `(0,0)` is top left, and `(1,1)` is bottom right of the image; coordinates are 2D.
 
@@ -354,6 +355,26 @@ def draw_segment(self, image, pt_x, pt_y, color):
     _color_type, [r, g, b] = defined_colors[color]
     cv2.line(image, (pt_x[0], pt_y[0]), (pt_x[1], pt_y[1]), (b * 255, g * 255, r * 255), 5)
     return image
+```
+
+To read a generic YAML file you can use this function:  
+
+```python
+def readYamlFile(self,fname):
+    """
+    Reads the YAML file in the path specified by 'fname'.
+    E.G. :
+        the calibration file is located in : `/data/config/calibrations/filename/DUCKIEBOT_NAME.yaml`
+    """
+    with open(fname, 'r') as in_file:
+        try:
+            yaml_dict = yaml.load(in_file)
+            return yaml_dict
+        except yaml.YAMLError as exc:
+            self.log("YAML syntax error. File: %s fname. Exc: %s"
+                     %(fname, exc), type='fatal')
+            rospy.signal_shutdown()
+            return
 ```
 
 For other functionalities (i.e. loading the calibration files), we recommend that you invest some time in looking into the existing Duckietown code. You can find some helpful functions and methods there.

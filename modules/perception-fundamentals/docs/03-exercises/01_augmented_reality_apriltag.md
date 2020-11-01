@@ -34,23 +34,24 @@ In order to solve the exercise you will have to create a package called `augment
 
 ## Instructions {#cra-apriltag-augmented-reality-exercise-instructions}
 
-1. This exercise package structure will be based on the one provided by the [AprilTag Template](link to custom repo). Inside there you will find everything you need like the 3D model and the provided files.
-TODO: (VINCENZO) CREATE AND LINK THE CUSTOM REPO, SPECIFY WHETHER IS A TEMPLATE TO BASE THERI REPO ON OR A REPO TO FORK AND MODIFY.
-2. In this exercise you will have to use the AprilTag library so check that it has been added in the `dependencies-py3.txt` as `dt-apriltags`.
-3. We provided you a file called `renderClass.py`. Inside you will find the `Renderer` class which allows you to draw a 3D `.obj` model onto an image. If you are curious about how this happens, the code inside this file is a modified version of [Pygame OBJFileLoader](http://www.pygame.org/wiki/OBJFileLoader).
+This exercise structure will be based on the [Augmented Reality AprilTag Repository Template](LINK_TO_THE_REPOSITORY). Please fork this repository into a private repository on your GitHub account. Inside there you will find everything you need for this exeercise, like the 3D model and the provided files.
+TODO: (VINCENZO) LINK THE CUSTOM REPO, SPECIFY WHETHER IS A TEMPLATE TO BASE THERI REPO ON OR A REPO TO FORK AND MODIFY.  
+
+1. In this exercise you will have to use the AprilTag library so check that it has been added in the `dependencies-py3.txt` as `dt-apriltags`.
+2. We provided you a file called `renderClass.py`. Inside you will find the `Renderer` class which allows you to draw a 3D `.obj` model onto an image. If you are curious about how this happens, the code inside this file is a modified version of [Pygame OBJFileLoader](http://www.pygame.org/wiki/OBJFileLoader).
   The provided Renderer class contains the method `render(img, projection_matrix)`, where `img` is the image you want to project the model onto and `projection_matrix` is the 3x4 matrix that transforms the 3D model coordinates to the AprilTag reference system allowing you to project it.
   The constructor of an instance of the `Renderer` class requires the 3D model as input. Keep the 3D model in a directory with the path `src/models`. You can use the code below to correctly initialize an instance of the `Renderer` class:
-  ```Python
-  # Import class from file.
-  from renderClass import Renderer
-
-  rospack = rospkg.RosPack()
-
-  # Initialize an instance of Renderer giving the model in input.
-  self.renderer = Renderer(rospack.get_path('YOUR PACKAGE NAME')+'/src/models/duckie.obj')
-  ```
-   Please refrain from changing the `renderClass.py` file. It has been tested and any change might lead to unexpected errors and problems that will not be supported. 
-4. You will also get a function to load the calibration parameters of your Duckiebot camera. TODO(VINCENZO) SPECIFY WHICH FUNCTION WE WANT TO GIVE THEM, ORIGINAL DUCKIETOWN OR OURS.
+      ```Python
+      # Import class from file.
+      from renderClass import Renderer
+    
+      rospack = rospkg.RosPack()
+    
+      # Initialize an instance of Renderer giving the model in input.
+      self.renderer = Renderer(rospack.get_path('YOUR PACKAGE NAME')+'/src/models/duckie.obj')
+      ```
+      Please refrain from changing the `renderClass.py` file. It has been tested and any change might lead to unexpected errors and problems that will not be supported. 
+3. You will also get a function to load the calibration parameters of your Duckiebot camera which should be in the node python file. 
 
 
 ## Exercise Structure {#cra-apriltag-augmented-reality-exercise-structure}
@@ -61,7 +62,13 @@ First, let's focus on what we are trying to achieve: to project a 3D model onto 
 1. Detect the AprilTag and extract its reference frame.
 2. Estimate the homography matrix: determine the transformation from the reference frame of the AprilTag (2D) to the reference frame of the target image (2D). This transformation is the homography matrix. For this step and the previous one, have a look at the [lib-dt-apriltags](https://github.com/duckietown/lib-dt-apriltags) repository, you will find it quite useful.
 3. Derive the transformation from the reference frame of the AprilTag to the target image reference frame: if we want to project a 3D model placed on top of the reference surface to the target image, we need to extend the previous transformation to handle cases were the height of the point to project is different from zero. This can be achieved with some knowledge about coordinate system transformations and a bit of algebra.
-4. Project our 3D model in the image (pixel space) and draw it: you can use the provided `Renderer` class for this.
+4. Project our 3D model in the image (pixel space) and draw it: you can use the provided `Renderer` class for this.  
+
+The expected outcome of this exercise should something like this:
+
+<figure>
+  <img style="width:30em" src="images/duckiesAR.png"/>
+</figure>
 
 ## Parameter Tweaking {#cra-apriltag-augmented-reality-exercise-parameters}
 
