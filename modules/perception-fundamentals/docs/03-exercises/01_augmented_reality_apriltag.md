@@ -15,7 +15,7 @@ The goal of this exercise is to put your skills in computer graphic to the test 
   
   Requires: [Basic Augmented Reality Exercise](#cra-basic-augmented-reality-exercise)
 
-  Results: Skills on how to develop new code as part of the Duckietown framework
+  Results: Advanced skills on how to manipulate transformations in Computer Graphics.
 
   Results: Insights into the computer graphics pipeline.
 </div>
@@ -35,7 +35,7 @@ In order to solve the exercise you will have to create a package called `augment
 ## Instructions {#cra-apriltag-augmented-reality-exercise-instructions}
 
 This exercise structure will be based on the [Augmented Reality AprilTag Repository Template](LINK_TO_THE_REPOSITORY). Please fork this repository into a private repository on your GitHub account. Inside there you will find everything you need for this exeercise, like the 3D model and the provided files.
-TODO: (VINCENZO) LINK THE CUSTOM REPO, SPECIFY WHETHER IS A TEMPLATE TO BASE THERI REPO ON OR A REPO TO FORK AND MODIFY.  
+TODO: (VINCENZO) LINK THE CUSTOM REPO, SPECIFY WHETHER IS A TEMPLATE TO BASE THEIR REPO ON OR A REPO TO FORK AND MODIFY.  
 
 1. In this exercise you will have to use the AprilTag library so check that it has been added in the `dependencies-py3.txt` as `dt-apriltags`.
 2. We provided you a file called `renderClass.py`. Inside you will find the `Renderer` class which allows you to draw a 3D `.obj` model onto an image. If you are curious about how this happens, the code inside this file is a modified version of [Pygame OBJFileLoader](http://www.pygame.org/wiki/OBJFileLoader).
@@ -52,7 +52,7 @@ TODO: (VINCENZO) LINK THE CUSTOM REPO, SPECIFY WHETHER IS A TEMPLATE TO BASE THE
       ```
       Please refrain from changing the `renderClass.py` file. It has been tested and any change might lead to unexpected errors and problems that will not be supported. 
 3. You will also get a function to load the calibration parameters of your Duckiebot camera which should be in the node python file. 
-
+4. Conversely to the previous exercise, here you are not asked to rectify the image to reduce the delay of this node. You are nonetheless invited to try this yourself and see how accuracy and speed are affected. 
 
 ## Exercise Structure {#cra-apriltag-augmented-reality-exercise-structure}
 

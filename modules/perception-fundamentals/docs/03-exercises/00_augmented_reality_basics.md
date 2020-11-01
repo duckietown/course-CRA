@@ -15,7 +15,7 @@ In particular, the focus is in the perception pipeline. You will implement a com
 
   Requires: [Knowledge of the software architecture on a Duckiebot](+duckietown-robotics-development#duckietown-code-structure)
 
-  Results: Skills on how to develop new code as part of the Duckietown framework
+  Results: Skills on how to develop new code as part of the Duckietown framework.
 
   Results: Insights into a computer graphics pipeline.
 </div>
