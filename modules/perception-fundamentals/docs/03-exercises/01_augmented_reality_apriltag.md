@@ -56,7 +56,7 @@ Please refrain from changing the `renderClass.py` file. It has been tested and a
 
 4. You will also get a function to load the calibration parameters of your Duckiebot camera which should be in the node python file. 
 
-5. Conversely to the previous exercise, here you are not asked to rectify the image to reduce the delay of this node. You are nonetheless invited to try this yourself and see how accuracy and speed are affected. 
+5. Conversely to the exercise in the [previous section](#cra-basic-augmented-reality-exercise), here you are not asked to rectify the image to reduce the delay of this node. You are nonetheless invited to try this yourself and see how accuracy and speed are affected. 
 
 ## Exercise Structure {#cra-apriltag-augmented-reality-exercise-structure}
 

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-During lectures, we explained the perception direction of the image pipeline:  
+During lectures, we explained the standard workflow of an image perception pipeline:  
 
 <figure>
   <img style="width:30em" src="images/image_pipeline.png"/>
