@@ -2,7 +2,7 @@
 
 Excerpt: Apply your competences in software development in a perception pipeline.
 
-The goal of this exercise is to put your skills in computer graphic to the test by projecting a complex 3D model on an AprilTag at an arbitrary position.
+The goal of this exercise is to put your skills in computer graphics to the test by projecting a complex 3D model on an AprilTag at an arbitrary position.
 
 <div class='requirements' markdown='1'>
   Requires: [Camera calibration](+opmanual_duckiebot#camera-calib)
@@ -41,16 +41,18 @@ In order to solve the exercise you will have to create a package called `augment
 3. We provided you a file called `renderClass.py`. Inside you will find the `Renderer` class which allows you to draw a 3D `.obj` model onto an image. If you are curious about how this happens, the code inside this file is a modified version of [Pygame OBJFileLoader](http://www.pygame.org/wiki/OBJFileLoader).
   The provided Renderer class contains the method `render(img, projection_matrix)`, where `img` is the image you want to project the model onto and `projection_matrix` is the 3x4 matrix that transforms the 3D model coordinates to the AprilTag reference system allowing you to project it.
   The constructor of an instance of the `Renderer` class requires the 3D model as input. Keep the 3D model in a directory with the path `src/models`. You can use the code below to correctly initialize an instance of the `Renderer` class:
-      ```Python
-      # Import class from file.
-      from renderClass import Renderer
-    
-      rospack = rospkg.RosPack()
-    
-      # Initialize an instance of Renderer giving the model in input.
-      self.renderer = Renderer(rospack.get_path('YOUR PACKAGE NAME')+'/src/models/duckie.obj')
-      ```
-      Please refrain from changing the `renderClass.py` file. It has been tested and any change might lead to unexpected errors and problems that will not be supported. 
+
+```python
+# Import class from file.
+from renderClass import Renderer
+
+rospack = rospkg.RosPack()
+
+# Initialize an instance of Renderer giving the model in input.
+self.renderer = Renderer(rospack.get_path('YOUR PACKAGE NAME')+'/src/models/duckie.obj')
+```
+      
+Please refrain from changing the `renderClass.py` file. It has been tested and any change might lead to unexpected errors and problems that will not be supported. 
 3. You will also get a function to load the calibration parameters of your Duckiebot camera which should be in the node python file. 
 4. Conversely to the previous exercise, here you are not asked to rectify the image to reduce the delay of this node. You are nonetheless invited to try this yourself and see how accuracy and speed are affected. 
 
