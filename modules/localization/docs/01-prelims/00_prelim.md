@@ -60,7 +60,7 @@ After adding these 3 topics, `rviz` should show the output as in the figure abov
 The following functions will be useful to change the dynamic parameters in the exercises:
 
     laptop $ dts start_gui_tools ![DUCKIEBOT_NAME]
-
+    
 1) Listing the parameters:
 
     duckiebot-container $ rosparam list

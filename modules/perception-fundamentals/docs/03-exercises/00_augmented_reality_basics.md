@@ -1,9 +1,9 @@
-# Exercise: Augmented Reality {#exercise-augmented-reality status=ready}
+# Basic Augmented Reality Exercise {#cra-basic-augmented-reality-exercise status=ready}
 
 Excerpt: Apply your competences in software development in a perception pipeline.
 
 The goal of this exercise is to familiarize yourself in developing functionalities in the framemork of a pre-existing pipeline.
-In particular the focus is in the perception pipeline, where you will implement a computer graphics algorithm.
+In particular, the focus is in the perception pipeline. You will implement a computer graphics algorithm that will be a part of it.
 
 
 <div class='requirements' markdown='1'>
@@ -15,111 +15,83 @@ In particular the focus is in the perception pipeline, where you will implement 
 
   Requires: [Knowledge of the software architecture on a Duckiebot](+duckietown-robotics-development#duckietown-code-structure)
 
-  Results: Skills on how to develop new code as part of the Duckietown framework
+  Results: Skills on how to develop new code as part of the Duckietown framework.
 
   Results: Insights into a computer graphics pipeline.
 </div>
 
+## Segments Projection Exercise
 
-## Introduction
+In this exercise you are asked to draw some segments on an image given a yaml file with their specification namely defining points coordinates and color of each segment.
+In order to do that you will have to create a package called `augmented_reality_basics` with the functionalities specified below in [](#cra-basic-augmented-reality-exercise-spec).
 
-During lectures, we explained one direction of the image pipeline:
+Then verify the results of your package in the following 3 scenarios.
 
-<figure>
-  <img style="width:30em" src="images/image_pipeline.png"/>
-</figure>
-
-In this exercise, we are going to look at the pipeline in the opposite direction.
-
-It is often said that:
-
-> "The inverse of computer vision is computer graphics."
-
-The inverse pipeline looks like this:
-<figure>
-  <img style="width:30em" src="images/graphics.png"/>
-</figure>
-In simple words, instead of extracting information from our camera, we want to introduce some data in the imagery.
-
-
-## Instructions
-
-
-* Ensure that you have already done intrinsics and extrinsics [camera calibration]() of your robot.
-* Create a package called `augmented_reality` with functionalities specified below in [](#exercise-augmented-reality-spec).
-
-
-Then verify the results in the following 3 situations.
-
-
-### Situation 1: Calibration pattern
+### Scenario 1: Calibration pattern
 
 * Put the robot in the middle of the calibration pattern.
-* Run the node `augmented_reality` with map file `calibration_pattern.yaml`.
+* Run the node `augmented_reality_basics` with map file `calibration_pattern.yaml`.
 
 (Adjust the position of your Duckiebot until you get a decent match of reality and augmented reality.)
 
-### Situation 2: Lane
+### Scenario 2: Lane
 
-* Put the robot in the middle of a lane.
-* Run the node `augmented_reality` with map file `lane.yaml`.
+* Put the robot on a tile, in the middle of a straight lane segment.
+* Run the node `augmented_reality_basics` with map file `lane.yaml`.
 
 (Adjust the position of your Duckiebot of your Duckiebot until you get a decent match of reality and augmented reality.)
 
-### Situation 3: Intersection
+### Scenario 3: Intersection
 
 * Put the robot at a stop line at a 4-way intersection in Duckietown.
-* Run the node `augmented_reality` with map file `intersection_4way.yaml`.
+* Run the node `augmented_reality_basics` with map file `intersection_4way.yaml`.
 
 (Adjust the position of your Duckiebot until you get a decent match of reality and augmented reality.)
 
-## Specification of `augmented_reality` {#exercise-augmented-reality-spec}
+## Specification of "augmented_reality_basics" {#cra-basic-augmented-reality-exercise-spec}
 
 In this assignment you will be writing a ROS package to perform the augmented reality exercise. The program will be invoked with the following syntax:
 
-    container $ roslaunch augmented_reality augmented_reality.launch map_file:=![map file] robot_name:=![robot name]
+    container $ roslaunch augmented_reality_basics augmented_reality_basics.launch map_file:=![map file] veh:="$VEHICLE_NAME"
 
-where `![map file]` is a YAML file containing the map (specified in [](#exercise-augmented-reality-map)).
+where `![map file]` is a YAML file containing the map as specified in [](#cra-basic-augmented-reality-exercise-map).
+If you use a roslaunch in the `launch.sh` file remember to put '`dt-exec` before each command. 
 
-The package structure *must* be the one provided by the [Duckietown template-ros](https://github.com/duckietown/template-ros),
-in addition, create a map folder where you can store the map files.
+The package structure *must* be the one provided by the [Duckietown template-ros](https://github.com/duckietown/template-ros). In addition, create a map directory where you can store the map files.
 
 Your program is supposed to do the following:
 
 1. Load the intrinsic / extrinsic calibration parameters for the given robot.
-2. Read the map file, using the map file given in the roslaunch command.
-3. Listen to the image topic `/![robot name]/camera_node/image/compressed`.
-4. Read each image, project the map features onto the image, and then write the resulting image to the topic `/![robot name]/![node_name]/![map file basename]/image/compressed`
-
-where `![map file basename]` is the basename of the file without the extension.
+2. Read the map file corresponding to the `map_file` parameter given in the roslaunch command above.
+3. Subscribe to the image topic `/![robot name]/camera_node/image/compressed`.
+4. When you receive an image, project the map features onto it, and then publish the result to the topic `/![robot name]/![node_name]/![map file basename]/image/compressed` where `![map file basename]` is the basename of the file without the `yaml` extension.
 
 <!-- We provide you with ROS package template that contains the `AugmentedRealityNode`. By default, launching the `AugmentedRealityNode` should publish raw images from the camera on the new `/![robot name]/AR/![map file basename]/image/compressed` topic. -->
 
-Create a ROS node called `augmented_reality_node`, which imports an `Augmenter` class, from an `augmented_reality` module.
-The class should contain the following methods:
+Create a ROS node called `augmented_reality_basics_node`, which imports an `Augmenter` class, from an `augmented_reality_basics` module.
+The `Augmenter` class should contain the following methods:
 
 1. A method called `process_image` that undistorts raw images.
 2. A method called `ground2pixel` that transforms points in ground coordinates (i.e. the robot reference frame) to pixels in the image.
-3. A method called `render_segments` that adds the segments from the map files to the image.
+3. A method called `render_segments` that plots the segments from the map files onto the image.
 
-In the ROS node, you just need a callback that uses the above specified class to modify the input image, so:
+In the ROS node, you just need a callback on the camera image stream that uses the `Augmenter` class to modify the input image. Therefore, implement a method called `callback` that writes the augmented image to the appropriate topic.
 
-1. Implement a method called `callback` that writes the augmented image to the appropriate topic.
+Note: As you will subscribe to the camera node's `camera_node/image/compressed` topic, you will need to run the `dt-duckiebot-interface` container alongside your own container.
 
-## Specification of the map {#exercise-augmented-reality-map}
+## Map Specification {#cra-basic-augmented-reality-exercise-map}
 
 The map file contains a 3D polygon, defined as a list of points and a list of segments
 that join those points.
 
-The format is similar to any data structure for 3D computer graphics, with a few changes:
+The format is similar to any data structure for 3D computer graphics. Additionally, we have these two specifics:
 
 1. Points are referred to by name.
 2. It is possible to specify a reference frame for each point. (This will help make this into
 a general tool for debugging various types of problems).
 
-Here is an example of the file contents, hopefully self-explanatory.
-
-The following map file describes 3 points, and two lines.
+Here is an example of the file contents, which is hopefully self-explanatory.
+The following map file describes three points, and two lines.
 
     points:
         # define three named points: center, left, right
@@ -137,12 +109,11 @@ The following map file describes 3 points, and two lines.
 
 The reference frames are defined as follows:
 
-- `axle`: center of the axle; coordinates are 3D.
-- `camera`: camera frame; coordinates are 3D.
-- `image01`: a reference frame in which 0,0 is top left, and 1,1 is bottom right of the image; coordinates are 2D.
+- `axle`: center of the wheels axle; coordinates are in 3D.
+- `camera`: camera frame; coordinates are in 3D.
+- `image01`: a reference frame in which `(0,0)` is top left, and `(1,1)` is bottom right of the image; coordinates are 2D.
 
-(Other image frames will be introduced later, such as the `world` and `tile` reference frame, which
-need the knowledge of the location of the robot.)
+(Other reference frames will be introduced later, such as the `world` and `tile` frames, which will also need the pose of the robot.)
 
 ### Color specification
 
@@ -151,21 +122,19 @@ RGB colors are written as:
     [rgb, [![R], ![G], ![B]]]
 
 where the RGB values are between 0 and 1.
+Alternatively, you can use one of the following strings defining some popular colours:
 
-Moreover, we support the following strings:
-
-- `red` is equivalent to `[rgb, [1,0,0]]`
-- `green` is equivalent to `[rgb, [0,1,0]]`
-- `blue` is equivalent to `[rgb, [0,0,1]]`
-- `yellow` is equivalent to `[rgb, [1,1,0]]`
-- `magenta` is equivalent to `[rgb, [1,0,1]]`
-- `cyan` is equivalent to `[rgb, [0,1,1]]`
-- `white` is equivalent to `[rgb, [1,1,1]`
-- `black` is equivalent to `[rgb, [0,0,0]]`
+- `red`, equivalent to `[rgb, [1,0,0]]`;
+- `green`, equivalent to `[rgb, [0,1,0]]`;
+- `blue`, equivalent to `[rgb, [0,0,1]]`;
+- `yellow`, equivalent to `[rgb, [1,1,0]]`;
+- `magenta`, equivalent to `[rgb, [1,0,1]]`;
+- `cyan`, equivalent to `[rgb, [0,1,1]]`;
+- `white`, equivalent to `[rgb, [1,1,1]`;
+- `black`, equivalent to `[rgb, [0,0,0]]`.
 
 
-## "Map" files
-
+## Map specification files
 
 ### `hud.yaml`
 
@@ -219,14 +188,14 @@ The expected result is to put a border around the inside corners of the checkerb
 
 We want something like this:
 
-                      0
+                      
      |   |          | . |             |   |
      |   |          | . |             |   |
      |   |          | . |             |   |
      |   |          | . |             |   |
      |   |          | . |             |   |
      |   |          | . |             |   |
-      WW      L       WY      L         WW
+     W   W          Y   Y             W   W
      1   2          3   4             5   6
 
 Then we have:
@@ -388,7 +357,27 @@ def draw_segment(self, image, pt_x, pt_y, color):
     return image
 ```
 
-For other functionalities (i.e. loading calibration files), it could make sense to spend some time in looking into the existing Duckietown code.
+To read a generic YAML file you can use this function:  
+
+```python
+def readYamlFile(self,fname):
+    """
+    Reads the YAML file in the path specified by 'fname'.
+    E.G. :
+        the calibration file is located in : `/data/config/calibrations/filename/DUCKIEBOT_NAME.yaml`
+    """
+    with open(fname, 'r') as in_file:
+        try:
+            yaml_dict = yaml.load(in_file)
+            return yaml_dict
+        except yaml.YAMLError as exc:
+            self.log("YAML syntax error. File: %s fname. Exc: %s"
+                     %(fname, exc), type='fatal')
+            rospy.signal_shutdown()
+            return
+```
+
+For other functionalities (i.e. loading the calibration files), we recommend that you invest some time in looking into the existing Duckietown code. You can find some helpful functions and methods there.
 
 
 
