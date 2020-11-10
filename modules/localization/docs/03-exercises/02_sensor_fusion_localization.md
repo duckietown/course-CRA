@@ -139,7 +139,7 @@ The Apriltag detected provides accurate pose estimates with respect to landmarks
 
 In this package you'll have to place a node that publishes a `TransformStamped` message with the following properties: `frame_id: map`, `child_frame_id: fused_baselink`, `stamp`: current time, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame).  The node will also have to broadcast the TF `map`-`fused_baselink`. As a minimum, your fusion node should have the following behaviour:
 
-* The first time the Apriltag becomes visible, you have to calibrate the `encoder_baselink` frame/estimate to match exactly the Apriltag pose. This should be done with a ROS Service between  `fused_localization_node` and `encoder_localization_node`.
+* The first time the Apriltag becomes visible, you have to calibrate the `encoder_baselink` frame/estimate to match exactly the Apriltag pose. This should be done with a [ROS Service](http://wiki.ros.org/ROS/Tutorials/WritingServiceClient%28python%29) between  `fused_localization_node` (client) and `encoder_localization_node` (server).
 
 * Publish the robot pose using the Apriltag estimate (when available) projected on the ground plane (recall that this node publishes 2D poses).
 
