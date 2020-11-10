@@ -59,7 +59,7 @@ Hints:
 
 <!-- TODO: change video link -->
 <figure id="encoder-exercise-example">
-    <figcaption>Example video deliverable for [](#exercise:encoder_localization) </figcaption>
+    <figcaption>Example video deliverable for the encoder localization package </figcaption>
     <dtvideo src="vimeo:477202732"/>
 </figure>
 
@@ -81,7 +81,7 @@ A common way of getting rid of drift in mobile robots is to either use absolute 
 #### Apriltag localization package {#exercise:apriltag_localization}
 
 
-In this package you'll have to place a node that subscribes to `/camera_node/image/compressed` and publishes a `TransformStamped` message (if an image with a detected AApriltag has been received) with the following properties: `frame_id: map`, `child_frame_id: at_baselink`, `stamp`: timestamp of the last image received, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame). This node will also have to broadcast the following TFs: `map`-`apriltag`, `apriltag`-`camera`, `camera`-`at_baselink`. Make sure that when you place the apriltag in front of the robot you get something that looks roughly like FIGURE.. This will make it easier to fuse this pose with the pose from the encoders.
+In this package you'll have to place a node that subscribes to `/camera_node/image/compressed` and publishes a `TransformStamped` message (if an image with a detected AApriltag has been received) with the following properties: `frame_id: map`, `child_frame_id: at_baselink`, `stamp`: timestamp of the last image received, `transform`: a 3D pose of the robot baselink (see FIGURE for a definition of this frame). This node will also have to broadcast the following TFs: `map`-`apriltag`, `apriltag`-`camera`, `camera`-`at_baselink`. Make sure that when you place the apriltag in front of the robot you get something that looks roughly like FIGURE.. This will make it easier to fuse this pose with the pose from the encoders.
 
 Deliverable:
 
@@ -116,19 +116,19 @@ R_{AB} & {}_{A}r_{AB}\\
 
 <!-- TODO: change video link -->
 <figure id="rviz-final-tf-tree">
-    <figcaption>Goal TF tree for [](#exercise:at_localization) with rectified images and the robot facing the Apriltag</figcaption>
+    <figcaption>Goal TF tree for the AT localization package with rectified images and the robot facing the Apriltag</figcaption>
     <dtvideo src="vimeo:477202732"/>
 </figure>
 
 <!-- TODO: change video link -->
 <figure id="at-exercise-example-compressed">
-    <figcaption>Example video deliverable for [](#exercise:at_localization) with compressed images </figcaption>
+    <figcaption>Example video deliverable for the AT localization package with compressed images </figcaption>
     <dtvideo src="vimeo:477202732"/>
 </figure>
 
 <!-- TODO: change video link -->
 <figure id="at-exercise-example-rectified">
-    <figcaption>Example video deliverable for [](#exercise:at_localization) with rectified images </figcaption>
+    <figcaption>Example video deliverable for the AT localization package with rectified images </figcaption>
     <dtvideo src="vimeo:477202732"/>
 </figure>
 
@@ -141,7 +141,7 @@ In this package you'll have to place a node that publishes a `TransformStamped` 
 
 * The first time the Apriltag becomes visible, you have to calibrate the `encoder_baselink` frame/estimate to match exactly the Apriltag pose. This should be done with a ROS Service between  `fused_localization_node` and `encoder_localization_node`.
 
-* Publish the robot pose using the Apriltag estimate (when available).
+* Publish the robot pose using the Apriltag estimate (when available) projected on the ground plane (recall that this node publishes 2D poses).
 
 * If the Apriltag is not visible, use the encoder estimates, starting from the last Apriltag pose received (there should be no pose jump if the Apriltag goes out of sight).
 
@@ -161,12 +161,12 @@ Deliverable:
 
 <!-- TODO: change video link -->
 <figure id="fused-exercise-example-compressed-agressive">
-    <figcaption>Example video deliverable for [](#exercise:fused_localization) with compressed images and aggressive driving</figcaption>
+    <figcaption>Example video deliverable for the fused localization package with compressed images and aggressive driving</figcaption>
     <dtvideo src="vimeo:477202732"/>
 </figure>
 
 <!-- TODO: change video link -->
 <figure id="fused-exercise-example-rectified-slow">
-    <figcaption>Example video deliverable for [](#exercise:fused_localization) with rectified images and slow driving</figcaption>
+    <figcaption>Example video deliverable for the fused localization package with rectified images and slow driving</figcaption>
     <dtvideo src="vimeo:477202732"/>
 </figure>
