@@ -64,8 +64,8 @@ Hints:
 </figure>
 
 <!-- TODO: add picture of baselink on Duckiebot (waiting for Aleks) -->
-<div figure-id="fig:mod-kin" figure-caption="Position of the baselink and camera frames on the robot">
-  <img src=".png" style='width: 30em; height:auto'/>
+<div figure-id="fig:baselink-frame-def" figure-caption="Position of the baselink and camera frames on the robot">
+  <img src="goal_pipeline.png" style='width: 30em; height:auto'/>
 </div>
 
 As you have probably realized, some of the advantages of this localization system is that as long as the robot is moving, the wheel encoders will provide information about the state of the robot, at a high rate and with little delay. However, the pose of the robot is an integration of the measurements of the robot, meaning that it is subject to drift as any inaccuracies in measurement get propagated through time. When driving aggressively or through a slippery surface these inaccuracies are amplified (try this for yourself!). 
@@ -73,8 +73,8 @@ As you have probably realized, some of the advantages of this localization syste
 A common way of getting rid of drift in mobile robots is to either use absolute position measurements (with GPS, for instance) or to use fixed landmarks in the world as reference. This is how we humans also navigate the environment. Since there is no GPS on-board the Duckiebot, we will have to use the latter approach. This is what we will explore in the next exercise, where our landmarks will be traffic signs with Apriltags (see FIGURE).
 
 <!-- TODO: add picture of traffic sign with height arrow -->
-<div figure-id="fig:mod-kin" figure-caption="Example traffic sign to be used for Apriltag localization. In order to accurately construct your TF tree, please measure the height indicated">
-  <img src=".png" style='width: 30em; height:auto'/>
+<div figure-id="fig:traffic-sign-at" figure-caption="Example traffic sign to be used for Apriltag localization. In order to accurately construct your TF tree, please measure the height indicated">
+  <img src="goal_pipeline.png" style='width: 30em; height:auto'/>
 </div>
 
 
@@ -106,12 +106,19 @@ R_{AB} & {}_{A}r_{AB}\\
 \vec{0} & 1
 \end{bmatrix} $$ which transforms a vector in frame B to frame A. During your manipulations, keep in mind that $$ T_{BA} = (T_{AB})^{-1} $$ and $$ T_{AB} = T_{AC} T_{CB} $$
 
-</end>
+<end/>
 
-<!-- TODO: add picture of traffic sign with height arrow -->
-<div figure-id="fig:mod-kin" figure-caption="Example traffic sign to be used for Apriltag localization. In order to accurately construct your TF tree, please measure the height indicated">
-  <img src=".png" style='width: 30em; height:auto'/>
+<!-- TODO: add picture of camera apriltag tf from Notability -->
+<div figure-id="fig:at-lib-frame-convention" figure-caption="Frame convention used by Apriltag library when returning pose.">
+  <img src="goal_pipeline.png" style='width: 30em; height:auto'/>
 </div>
+
+
+<!-- TODO: change video link -->
+<figure id="rviz-final-tf-tree">
+    <figcaption>Goal TF tree for [](#exercise:at_localization) with rectified images and the robot facing the Apriltag</figcaption>
+    <dtvideo src="vimeo:477202732"/>
+</figure>
 
 <!-- TODO: change video link -->
 <figure id="at-exercise-example-compressed">
@@ -150,7 +157,7 @@ Deliverable:
 
 * A link to a github repository containing a package called `fused_localization`
 
-</end>
+<end/>
 
 <!-- TODO: change video link -->
 <figure id="fused-exercise-example-compressed-agressive">
