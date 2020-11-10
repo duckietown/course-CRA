@@ -154,7 +154,7 @@ In this package you'll have to place a node that publishes a `TransformStamped` 
 
 Deliverable:
 
-* A screen recording similar to this [](fused-exercise-example-compressed-agressive),  where you drive the robot aggressively in a loop around the Apriltag with a joystick, and one similar to EXAMPLE2, where you slowly drag the robot manually around the Apriltag making sure that the wheels are always turning forward and that you have good grip on the ground. In both cases you should end the trajectory where you started it (feel free to use a marker on the ground). Make sure the images are recorded as well as the TF tree in Rviz. 
+* A screen recording similar to this [](#fused-exercise-example-compressed-agressive),  where you drive the robot aggressively in a loop around the Apriltag with a joystick, and one similar to EXAMPLE2, where you slowly drag the robot manually around the Apriltag making sure that the wheels are always turning forward and that you have good grip on the ground. In both cases you should end the trajectory where you started it (feel free to use a marker on the ground). Make sure the images are recorded as well as the TF tree in Rviz. 
 <!-- 
 * (Bonus) A screen recording where you use rectified images and still drive fast. This will require you to handle the delay of the Apriltag estimates in some way. -->
 
