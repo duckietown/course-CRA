@@ -31,11 +31,11 @@ To be able to perform such a complex task, we will have to use all sensors onboa
 
 #### Encoder localization package {#exercise:encoder_localization}
 
-The first package you'll have to create in your Dockerized ROS workspace is one that will contain a node that publishes a `TransformStamped` message at 30Hz with the following properties: `frame_id: map`, `child_frame_id: encoder_baselink`, `stamp`: timestamp of the last wheel encoder tick, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame).
+The first package you'll have to create in your Dockerized ROS workspace is one that will contain a node that publishes a `TransformStamped` message at 30Hz with the following properties: `frame_id: map`, `child_frame_id: encoder_baselink`, `stamp`: timestamp of the last wheel encoder tick, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame). The node will also have to broadcast the TF `map`-`encoder_baselink`.
 
 Deliverable:
 
-* A screen recording similar to this EXAMPLE where you drive the robot in a loop and try to close the loop. Make sure the images are recorded as well as the TF tree in Rviz. Use a visible landmark as the origin of the map frame.
+* A screen recording similar to this EXAMPLE where you drive the robot in a loop and try to "close the loop" (by driving to the point where you started from). Make sure the images are recorded as well as the TF tree in Rviz. Use a visible landmark as the origin of the map frame.
 
 * A link to a github repository containing a package called `encoder_localization`
 
@@ -49,6 +49,90 @@ Hints:
 
 * To open RViz, simply run `dts start_gui_tools hostname.local` and run `rviz` from inside the container. Note that if you keep the container running you can save your RViz configurtion file so that when you reopen it, it automatically displays your topics of interest.
 
+* Rviz uses the following color-code convention for frame axes: `red: x-axis`, `green: y-axis`, `blue: z-axis`.
+
+* [This link](http://docs.ros.org/en/jade/api/tf/html/python/transformations.html) contains many useful tf library methods which allow you to switch between representations (e.g. expressing an euler yaw angle as a quaternion)
+
+<end/>
+
+<!-- TODO: change video link -->
+<figure id="encoder-exercise-example">
+    <figcaption>Example video deliverable for [](#exercise:encoder_localization) </figcaption>
+    <dtvideo src="vimeo:477202732"/>
+</figure>
+
+<!-- TODO: add picture of baselink on Duckiebot (waiting for Aleks) -->
+<div figure-id="fig:mod-kin" figure-caption="Position of the baselink and camera frames on the robot">
+  <img src=".png" style='width: 30em; height:auto'/>
+</div>
+
+As you have probably realized, some of the advantages of this localization system is that as long as the robot is moving, the wheel encoders will provide information about the state of the robot, at a high rate and with little delay. However, the pose of the robot is an integration of the measurements of the robot, meaning that it is subject to drift as any inaccuracies in measurement get propagated through time. When driving aggressively or through a slippery surface these inaccuracies are amplified (try this for yourself!). 
+
+A common way of getting rid of drift in mobile robots is to either use absolute position measurements (with GPS, for instance) or to use fixed landmarks in the world as reference. This is how we humans also navigate the environment. Since there is no GPS on-board the Duckiebot, we will have to use the latter approach. This is what we will explore in the next exercise, where our landmarks will be traffic signs with Apriltags (see FIGURE).
+
+<!-- TODO: add picture of traffic sign with height arrow -->
+<div figure-id="fig:mod-kin" figure-caption="Example traffic sign to be used for Apriltag localization. In order to accurately construct your TF tree, please measure the height indicated">
+  <img src=".png" style='width: 30em; height:auto'/>
+</div>
 
 
+#### Apriltag localization package {#exercise:apriltag_localization}
 
+
+In this package you'll have to place a node that subscribes to `/camera_node/image/compressed` and publishes a `TransformStamped` message with the following properties: `frame_id: map`, `child_frame_id: at_baselink`, `stamp`: timestamp of the last image received, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame). This node will also have to broadcast the following TFs: `map`-`apriltag`, `apriltag`-`camera`, `camera`-`at_baselink`. Make sure that when you place the apriltag in front of the robot you get something that looks roughly like FIGURE.. This will make it easier to fuse this pose with the pose from the encoders.
+
+Deliverable:
+
+* A screen recording similar to this EXAMPLE where you move the Apriltag in front of the robot from one side of the Field-of-View (FOV) to the other. Make sure the images are recorded as well as the TF tree in Rviz. 
+
+* Instead of directly using compressed images, rectify them before passing them to the Apriltag detector. You will see that this significantly improves the accuracy of the detector but at the cost of significant delay. Provide a screen recording similar to this EXAMPLE where you move the Apriltag in front of the robot from one side of the Field-of-View (FOV) to the other. Make sure the images are recorded as well as the TF tree in Rviz. 
+
+* (Bonus) Offload the computation of the rectified image to the GPU of the Jetson Nano so that the improved accuracy can be obtained without significant delay.
+
+* A link to a github repository containing a package called `at_localization`
+
+Hints:
+
+* A frame cannot have two parents. If you try to broadcast the following TFs: `map`-`baselink` and `camera`-`baselink`, you will see that you'll only be able to see the individual frames in RViz.
+
+* To rectify images, use the following `cv2` methods: `cv2.getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, (640, 480), 1.0)`, `cv2.initUndistortRectifyMap(cameraMatrix, distCoeffs, np.eye(3), newCameraMatrix, (640, 480), cv2.CV_32FC1)` and `cv2.remap(compressed_image, map1, map2, cv2.INTER_LINEAR)`.
+
+* To use the Apriltag detector, consult [this link](https://github.com/duckietown/lib-dt-apriltags). You can extract the pose of the Apriltag in the camera frame with `tag.pose_R` (rotation matrix) and `tag.pose_t` (translation vector). Keep in mind that the coordinate frame convention (see FIGURE) is different than the one you are supposed to use in the deliverable!
+
+* To convert between frames, we recommend that you use 4x4 transformation matrices. An example of such a matrix is $$ T_{AB} = \begin{bmatrix}
+R_{AB} & {}_{A}r_{AB}\\
+\vec{0} & 1
+\end{bmatrix} $$ which transforms a vector in frame B to frame A. During your manipulations, keep in mind that $$ T_{BA} = (T_{AB})^{-1} $$ and $$ T_{AB} = T_{AC} T_{CB} $$
+
+</end>
+
+<!-- TODO: add picture of traffic sign with height arrow -->
+<div figure-id="fig:mod-kin" figure-caption="Example traffic sign to be used for Apriltag localization. In order to accurately construct your TF tree, please measure the height indicated">
+  <img src=".png" style='width: 30em; height:auto'/>
+</div>
+
+<!-- TODO: change video link -->
+<figure id="at-exercise-example-compressed">
+    <figcaption>Example video deliverable for [](#exercise:at_localization) with compressed images </figcaption>
+    <dtvideo src="vimeo:477202732"/>
+</figure>
+
+<!-- TODO: change video link -->
+<figure id="at-exercise-example-rectified">
+    <figcaption>Example video deliverable for [](#exercise:at_localization) with rectified images </figcaption>
+    <dtvideo src="vimeo:477202732"/>
+</figure>
+
+#### Fused localization package {#exercise:fused_localization}
+
+In this package you'll have to place a node that publishes a `TransformStamped` message with the following properties: `frame_id: map`, `child_frame_id: fused_baselink`, `stamp`: timestamp of the last wheel encoder tick, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame).
+
+Deliverable:
+
+* A screen recording similar to this EXAMPLE where you    . Make sure the images are recorded as well as the TF tree in Rviz. Use a visible landmark as the origin of the map frame.
+
+* (Bonus) A screen recording with rectified images . Handle delay.
+
+* A link to a github repository containing a package called `at_localization`
+
+Hints:
