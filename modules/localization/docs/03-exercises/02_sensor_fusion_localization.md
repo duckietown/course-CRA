@@ -51,6 +51,8 @@ Hints:
 
 * Rviz uses the following color-code convention for frame axes: `red: x-axis`, `green: y-axis`, `blue: z-axis`.
 
+* To publish messages at a fixed frequency, consider using a ROS Timer. It works very similar to a subscriber except for the fact that the callback get called after a fixed duration of time.
+
 * [This link](http://docs.ros.org/en/jade/api/tf/html/python/transformations.html) contains many useful tf library methods which allow you to switch between representations (e.g. expressing an euler yaw angle as a quaternion)
 
 <end/>
@@ -79,7 +81,7 @@ A common way of getting rid of drift in mobile robots is to either use absolute 
 #### Apriltag localization package {#exercise:apriltag_localization}
 
 
-In this package you'll have to place a node that subscribes to `/camera_node/image/compressed` and publishes a `TransformStamped` message with the following properties: `frame_id: map`, `child_frame_id: at_baselink`, `stamp`: timestamp of the last image received, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame). This node will also have to broadcast the following TFs: `map`-`apriltag`, `apriltag`-`camera`, `camera`-`at_baselink`. Make sure that when you place the apriltag in front of the robot you get something that looks roughly like FIGURE.. This will make it easier to fuse this pose with the pose from the encoders.
+In this package you'll have to place a node that subscribes to `/camera_node/image/compressed` and publishes a `TransformStamped` message (if an image with a detected AApriltag has been received) with the following properties: `frame_id: map`, `child_frame_id: at_baselink`, `stamp`: timestamp of the last image received, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame). This node will also have to broadcast the following TFs: `map`-`apriltag`, `apriltag`-`camera`, `camera`-`at_baselink`. Make sure that when you place the apriltag in front of the robot you get something that looks roughly like FIGURE.. This will make it easier to fuse this pose with the pose from the encoders.
 
 Deliverable:
 
@@ -123,16 +125,41 @@ R_{AB} & {}_{A}r_{AB}\\
     <dtvideo src="vimeo:477202732"/>
 </figure>
 
+
+The Apriltag detected provides accurate pose estimates with respect to landmarks but at the cost of delay and low frequency. Moreover, one cannot continuously rely on such estimates since the Apriltag could go out of sight. To combat this, we can fuse the estimates of the Apriltag and the wheel encoders for continuous, accurate and robust localization. This is the goal of the next exercise.
+
 #### Fused localization package {#exercise:fused_localization}
 
-In this package you'll have to place a node that publishes a `TransformStamped` message with the following properties: `frame_id: map`, `child_frame_id: fused_baselink`, `stamp`: timestamp of the last wheel encoder tick, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame).
+In this package you'll have to place a node that publishes a `TransformStamped` message with the following properties: `frame_id: map`, `child_frame_id: fused_baselink`, `stamp`: current time, `transform`: a 2D pose of the robot baselink (see FIGURE for a definition of this frame).  The node will also have to broadcast the TF `map`-`fused_baselink`. As a minimum, your fusion node should have the following behaviour:
+
+* The first time the Apriltag becomes visible, you have to calibrate the `encoder_baselink` frame/estimate to match exactly the Apriltag pose. This should be done with a ROS Service between  `fused_localization_node` and `encoder_localization_node`.
+
+* Publish the robot pose using the Apriltag estimate (when available).
+
+* If the Apriltag is not visible, use the encoder estimates, starting from the last Apriltag pose received (there should be no pose jump if the Apriltag goes out of sight).
+
+* If the Apriltag becomes visible again, switch back to using Apriltag estimates (a jump in fused pose is allowed)
+
+* You don't have to handle the delay or the variance of the individual estimates to complete the exercise, but you are more than welcome to! Remember that the more accurate you make this node, the better your parking controller will perform in the coming exercise!
 
 Deliverable:
 
-* A screen recording similar to this EXAMPLE where you    . Make sure the images are recorded as well as the TF tree in Rviz. Use a visible landmark as the origin of the map frame.
+* A screen recording similar to this EXAMPLE,  where you drive the robot aggressively in a loop around the Apriltag with a joystick, and one similar to EXAMPLE2, where you slowly drag the robot manually around the Apriltag making sure that the wheels are always turning forward and that you have good grip on the ground. In both cases you should end the trajectory where you started it (feel free to use a marker on the ground). Make sure the images are recorded as well as the TF tree in Rviz. 
 
-* (Bonus) A screen recording with rectified images . Handle delay.
+* (Bonus) A screen recording where you use rectified images and still drive fast. This will require you to handle the delay of the Apriltag estimates in some way.
 
-* A link to a github repository containing a package called `at_localization`
+* A link to a github repository containing a package called `fused_localization`
 
-Hints:
+</end>
+
+<!-- TODO: change video link -->
+<figure id="fused-exercise-example-compressed-agressive">
+    <figcaption>Example video deliverable for [](#exercise:fused_localization) with compressed images and aggressive driving</figcaption>
+    <dtvideo src="vimeo:477202732"/>
+</figure>
+
+<!-- TODO: change video link -->
+<figure id="fused-exercise-example-rectified-slow">
+    <figcaption>Example video deliverable for [](#exercise:fused_localization) with rectified images and slow driving</figcaption>
+    <dtvideo src="vimeo:477202732"/>
+</figure>
