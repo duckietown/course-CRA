@@ -147,7 +147,7 @@ In this package you'll have to place a node that publishes a `TransformStamped` 
 
 Deliverable:
 
-* A screen recording similar to this [](#fused-exercise-example-recified-slow),  where you drive the robot in a loop around the Apriltag with the virtual joystick. Start the recording with the Apriltag not visible, so that you validate that your calibration service is working and when it does bacome visible all the frames align. You should end the trajectory where you started it (feel free to use a marker on the ground). Make sure the images are recorded as well as the TF tree in Rviz. 
+* A screen recording similar to this [](#fused-exercise-example-rectified-slow),  where you drive the robot in a loop around the Apriltag with the virtual joystick. Start the recording with the Apriltag not visible, so that you validate that your calibration service is working and when it does bacome visible all the frames align. You should end the trajectory where you started it (feel free to use a marker on the ground). Make sure the images are recorded as well as the TF tree in Rviz. 
 <!-- 
 * (Bonus) A screen recording where you use rectified images and still drive fast. This will require you to handle the delay of the Apriltag estimates in some way. -->
 
