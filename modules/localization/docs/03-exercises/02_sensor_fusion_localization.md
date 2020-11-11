@@ -57,13 +57,11 @@ Hints:
 
 <end/>
 
-<!-- TODO: change video link -->
 <figure id="encoder-exercise-example">
     <figcaption>Example video deliverable for the encoder localization package </figcaption>
-    <dtvideo src="vimeo:477202732"/>
+    <dtvideo src="vimeo:477772450"/>
 </figure>
 
-<!-- TODO: add picture of baselink on Duckiebot (waiting for Aleks) -->
 <div figure-id="fig:baselink-frame-def" figure-caption="Position of the baselink and camera frames on the robot">
   <img src="baselink_camera_frame.jpg" style='width: 30em; height:auto'/>
 </div>
@@ -72,7 +70,6 @@ As you have probably realized, some of the advantages of this localization syste
 
 A common way of getting rid of drift in mobile robots is to either use absolute position measurements (with GPS, for instance) or to use fixed landmarks in the world as reference. This is how we humans also navigate the environment. Since there is no GPS on-board the Duckiebot, we will have to use the latter approach. This is what we will explore in the next exercise, where our landmarks will be traffic signs with Apriltags (see [](#fig:traffic-sign-at)).
 
-<!-- TODO: add picture of traffic sign with height arrow -->
 <div figure-id="fig:traffic-sign-at" figure-caption="Example traffic sign to be used for Apriltag localization. In order to accurately construct your TF tree, please measure the height indicated">
   <img src="traffic_sign_at.jpg" style='width: 12em; height:auto'/>
 </div>
@@ -87,7 +84,7 @@ Deliverable:
 
 * A screen recording similar to this [](#at-exercise-example-compressed) where you move the Apriltag in front of the robot from one side of the Field-of-View (FOV) to the other. Make sure the images are recorded as well as the TF tree in Rviz. 
 
-* Instead of directly using compressed images, rectify them before passing them to the Apriltag detector. You will see that this significantly improves the accuracy of the detector but at the cost of significant delay. Provide a screen recording similar to this [](#at-exercise-example-rectified) where you move the Apriltag in front of the robot from one side of the Field-of-View (FOV) to the other. Make sure the images are recorded as well as the TF tree in Rviz. 
+* Instead of directly using compressed images, rectify them before passing them to the Apriltag detector. You will see that this significantly improves the accuracy of the detector but at the cost of significant delay. Provide a screen recording similar to this [](#at-exercise-example-rectified) where you move the Apriltag in front of the robot from one side of the Field-of-View (FOV) to the other. Make sure the images are recorded as well as the TF tree in Rviz. You should observe that the `map` and `baselink` are now in the same plane (or at least much closer to it than with compressed images).
 
 * (Bonus) Offload the computation of the rectified image to the GPU of the Jetson Nano so that the improved accuracy can be obtained without significant delay.
 
@@ -105,34 +102,30 @@ Hints:
 [](#fig:baselink-frame-def) as reference, or you can try to use the homography matrix obtained during extrinsic calibration.
 
 * To convert between frames, we recommend that you use 4x4 transformation matrices. An example of such a matrix is $$ T_{AB} = \begin{bmatrix}
-R_{AB} & {}_{A}r_{AB}\\
+R_{AB} & {}_{A}\vec{r}_{AB}\\
 \vec{0} & 1
 \end{bmatrix} $$ which transforms a vector in frame B to frame A. During your manipulations, keep in mind that $$ T_{BA} = (T_{AB})^{-1} $$ and $$ T_{AB} = T_{AC} T_{CB} $$ for any frames $$A, B $$ and $$C$$.
 
 <end/>
 
-<!-- TODO: add picture of camera apriltag tf from Notability -->
 <div figure-id="fig:at-lib-frame-convention" figure-caption="Frame convention used by Apriltag library when returning pose.">
   <img src="at_camera_frames.jpg" style='width: 30em; height:auto'/>
 </div>
 
 
-<!-- TODO: change video link -->
 <figure id="rviz-final-tf-tree">
     <figcaption>Goal TF tree for the AT localization package with rectified images and the robot facing the Apriltag</figcaption>
     <dtvideo src="vimeo:477649817"/>
 </figure>
 
-<!-- TODO: change video link -->
 <figure id="at-exercise-example-compressed">
     <figcaption>Example video deliverable for the AT localization package with compressed images </figcaption>
-    <dtvideo src="vimeo:477202732"/>
+    <dtvideo src="vimeo:477771555"/>
 </figure>
 
-<!-- TODO: change video link -->
 <figure id="at-exercise-example-rectified">
     <figcaption>Example video deliverable for the AT localization package with rectified images </figcaption>
-    <dtvideo src="vimeo:477202732"/>
+    <dtvideo src="vimeo:477771932"/>
 </figure>
 
 
@@ -154,7 +147,7 @@ In this package you'll have to place a node that publishes a `TransformStamped` 
 
 Deliverable:
 
-* A screen recording similar to this [](#fused-exercise-example-compressed-agressive),  where you drive the robot aggressively in a loop around the Apriltag with a joystick, and one similar to EXAMPLE2, where you slowly drag the robot manually around the Apriltag making sure that the wheels are always turning forward and that you have good grip on the ground. In both cases you should end the trajectory where you started it (feel free to use a marker on the ground). Make sure the images are recorded as well as the TF tree in Rviz. 
+* A screen recording similar to this [](#fused-exercise-example-recified-slow),  where you drive the robot in a loop around the Apriltag with the virtual joystick. Start the recording with the Apriltag not visible, so that you validate that your calibration service is working and when it does bacome visible all the frames align. You should end the trajectory where you started it (feel free to use a marker on the ground). Make sure the images are recorded as well as the TF tree in Rviz. 
 <!-- 
 * (Bonus) A screen recording where you use rectified images and still drive fast. This will require you to handle the delay of the Apriltag estimates in some way. -->
 
@@ -163,13 +156,12 @@ Deliverable:
 <end/>
 
 <!-- TODO: change video link -->
-<figure id="fused-exercise-example-compressed-agressive">
+<!-- <figure id="fused-exercise-example-compressed-agressive">
     <figcaption>Example video deliverable for the fused localization package with compressed images and aggressive driving</figcaption>
     <dtvideo src="vimeo:477202732"/>
-</figure>
+</figure> -->
 
-<!-- TODO: change video link -->
 <figure id="fused-exercise-example-rectified-slow">
     <figcaption>Example video deliverable for the fused localization package with rectified images and slow driving</figcaption>
-    <dtvideo src="vimeo:477202732"/>
+    <dtvideo src="vimeo:477772244"/>
 </figure>
