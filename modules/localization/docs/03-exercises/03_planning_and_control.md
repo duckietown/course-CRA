@@ -97,7 +97,7 @@ Deliverable 1: a screen recording of your Duckiebot moving in rviz where the `ba
 
  <figure id="path-spline-video">
      <figcaption>Example video deliverable for the ROS navigation </figcaption>
-     <dtvideo src="vimeo.com/479746774"/>
+     <dtvideo src="vimeo:479746774"/>
  </figure>
 
 TIP: For moving your Duckiebot at this stage, you can use the `dts duckiebot keyboard_control HOSTNAME` command to manually control your robot. This is useful for debugging.
