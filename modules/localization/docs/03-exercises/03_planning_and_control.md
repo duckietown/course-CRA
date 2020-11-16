@@ -94,9 +94,10 @@ Your task is to measure your desired parking maneuver in the physical world (e.g
 Deliverable 1: a screen recording of your Duckiebot moving in rviz where the `baselink` reference frame is shown moving with respect to a fixed path in the global reference frame. see [](#path-spline-video) for a sample submission.
 
  A screen recording similar to this [](#encoder-exercise-example)
+
  <figure id="path-spline-video">
      <figcaption>Example video deliverable for the ROS navigation </figcaption>
-     <dtvideo src="path-spline-sample.mp4"/>
+     <dtvideo src="vimeo.com/479746774"/>
  </figure>
 
 TIP: For moving your Duckiebot at this stage, you can use the `dts duckiebot keyboard_control HOSTNAME` command to manually control your robot. This is useful for debugging.
