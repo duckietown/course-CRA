@@ -45,7 +45,7 @@ For making the Duckiebot move, you can do two things, either publishing directly
   TIP: You can publish directly to the kinematics node by remapping your topic to the subscriber in the kinematics node. This is done using the `<remap from="/topic_example1" to="/topic_example2" />` tag in your launchfile.
 
 <div figure-id="fig:kinematics-db" figure-caption="Kinematics model of a differential drive robot">
-  <img src="mod-kin.jpg" style='width: 30em; height:auto'/>
+  <img src="mod-kin.png" style='width: 30em; height:auto'/>
 </div>
 
 ##### Planning in ROS
