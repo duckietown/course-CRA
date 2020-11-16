@@ -54,38 +54,42 @@ To make all this happen, you will first have to plan a route to follow in the gl
 
 Your task is to measure your desired parking maneuver in the physical world (e.g. 30cm along the lane, and 22cm parallel to the lane), and create a trajectory in 2D that the Duckiebot will follow. Convert the trajectory to a message of type `nav_msgs/Path()` and publish it. Example of what the measuring might look like is shown in [](#fig:x_10), [](#fig:x_20) and [](#fig:x_30):
 
-<table>
-<tr>
-<td><div figure-id="fig:x10" figure-caption="Duckiebot 10 cm away from Apriltag">
-  <img src="x_10.png" style='width: 20em; height:auto'/>
-</div></td>
-<td><div figure-id="fig:x10_map" figure-caption="Camera view 10cm away from Apriltag">
-  <img src="x_10_cam.png" style='width: 20em; height:auto'/>
-</div></td>
-</tr>
-</table>
+<!-- Adding the figures to show implementation -->
+<figure class="flow-subfigures">  
+    <figcaption>Duckiebot 10 cm away from Apriltag</figcaption>
+    <figure>
+        <figcaption>Top view</figcaption>
+        <img style='width:8em' src="x_10.png"/>
+    </figure>
+    <figure>  
+        <figcaption>Camera view</figcaption>
+        <img style='width:8em' src="x_10_cam.png"/>
+    </figure>
+</figure>
 
-<table>
-<tr>
-<td><div figure-id="fig:x20" figure-caption="Duckiebot 20 cm away from Apriltag">
-  <img src="x_20.png" style='width: 20em; height:auto'/>
-</div></td>
-<td><div figure-id="fig:x20_map" figure-caption="Camera view 20cm away from Apriltag">
-  <img src="x_20_cam.png" style='width: 20em; height:auto'/>
-</div></td>
-</tr>
-</table>
+<figure class="flow-subfigures">  
+    <figcaption>Duckiebot 20 cm away from Apriltag</figcaption>
+    <figure>
+        <figcaption>Top view</figcaption>
+        <img style='width:8em' src="x_20.png"/>
+    </figure>
+    <figure>  
+        <figcaption>Camera view</figcaption>
+        <img style='width:8em' src="x_20_cam.png"/>
+    </figure>
+</figure>
 
-<table>
-<tr>
-<td><div figure-id="fig:x30" figure-caption="Duckiebot 30 cm away from Apriltag">
-  <img src="x_30.png" style='width: 20em; height:auto'/>
-</div></td>
-<td><div figure-id="fig:x30_map" figure-caption="Camera view 30cm away from Apriltag">
-  <img src="x_30_cam.png" style='width: 20em; height:auto'/>
-</div></td>
-</tr>
-</table>
+<figure class="flow-subfigures">  
+    <figcaption>Duckiebot 30 cm away from Apriltag</figcaption>
+    <figure>
+        <figcaption>Top view</figcaption>
+        <img style='width:8em' src="x_30.png"/>
+    </figure>
+    <figure>  
+        <figcaption>Camera view</figcaption>
+        <img style='width:8em' src="x_30_cam.png"/>
+    </figure>
+</figure>
 
 Deliverable 1: a screen recording of your Duckiebot moving in rviz where the `baselink` reference frame is shown moving with respect to a fixed path in the global reference frame. see [](#path-spline-video) for a sample submission.
 
@@ -106,7 +110,6 @@ Deliverable 2: Three separate recordings of your Duckiebot performing the parall
   * A full cycle is defined as starting in front of the Apriltag, moving backwards to park, and then going back to the starting position.
 
   * Provide a link to your github repository containing the package called `parking_control_node`.
-
 
 
 <end/>
