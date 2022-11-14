@@ -33,7 +33,7 @@ Note: When you are done with the exercise, you should run the reverse command in
 
 To start `rviz` run the following container:
 
-    laptop $ docker run -it --net=host -e VEHICLE_NAME=![DUCKIEBOT_HOSTNAME] --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" duckietown/rviz-cra2:daffy-amd64 /bin/bash
+    laptop $ docker run -it --net=host -e VEHICLE_NAME=![DUCKIEBOT_HOSTNAME] --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" duckietown/rviz-cra2:daffy /bin/bash
 
 then:
 
